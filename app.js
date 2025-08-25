@@ -5,12 +5,12 @@ class BibleApi {
 
   async getApi() {
     const response = await axios.get(this.resource);
-    console.log(response.data);
+    // console.log(response.data);
     return response.data;
   }
 }
 
-class GetAllBooks extends BibleApi {
+class BibleApp extends BibleApi {
   constructor(resource) {
     super(resource);
   }
@@ -21,14 +21,39 @@ class GetAllBooks extends BibleApi {
         const li = document.createElement("li");
         li.textContent = book.name;
         document.getElementById("bookList").appendChild(li);
-        console.log(book.name);
       }
     });
   }
+
+  async searchBook(link) {
+    document.getElementById("displayArea").innerHTML = "";
+
+    const response = await axios.get(link);
+    const h3 = document.createElement("h3");
+    h3.textContent = response.data.reference;
+
+    const p = document.createElement("p");
+    p.textContent = response.data.text;
+    p.classList.add("verse");
+    document.getElementById("displayArea").appendChild(h3);
+    document.getElementById("displayArea").appendChild(p);
+  }
 }
+
+// accessing html element
+const searchInput = document.getElementById("searchInput");
+const searchBtn = document.getElementById("searchBtn");
 
 const bibleapi = new BibleApi("https://bible-api.com/data/kjv");
 bibleapi.getApi();
 
-const displayBooks = new GetAllBooks("https://bible-api.com/data/kjv");
-displayBooks.displayAllBooks();
+const books = new BibleApp("https://bible-api.com/data/kjv");
+books.displayAllBooks();
+
+searchBtn.addEventListener("click", () => {
+  books.searchBook(
+    `https://bible-api.com/${searchInput.value}?translation=kjv`
+  );
+
+  searchInput.value = "";
+});
