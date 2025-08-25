@@ -5,7 +5,7 @@ class BibleApi {
 
   async getApi() {
     const response = await axios.get(this.resource);
-    // console.log(response.data);
+    console.log(response.data);
     return response.data;
   }
 }
@@ -44,6 +44,8 @@ class BibleApp extends BibleApi {
 const searchInput = document.getElementById("searchInput");
 const searchBtn = document.getElementById("searchBtn");
 
+const bookList = document.getElementById("bookList");
+
 const bibleapi = new BibleApi("https://bible-api.com/data/kjv");
 bibleapi.getApi();
 
@@ -57,3 +59,20 @@ searchBtn.addEventListener("click", () => {
 
   searchInput.value = "";
 });
+
+bookList.addEventListener("click", async (e) => {
+  if (e.target.tagName === "LI") {
+    let get = e.target.textContent.slice(0, 3).toUpperCase();
+    const response = await axios.get(`https://bible-api.com/data/kjv/${get}`);
+    response.data.chapters.forEach((chapter) => {
+      console.log(chapter.chapter);
+    });
+  }
+});
+
+async function cl() {
+  const response = await axios.get("https://bible-api.com/data/kjv/GEN/1");
+  console.log(response.data);
+}
+
+cl();
