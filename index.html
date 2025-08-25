@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Bible App</title>
+  </head>
+  <body>
+    <div class="sidebar">
+      <h2>Bible App</h2>
+      <button id="oldTestamentBtn">Old Testament</button>
+      <button id="newTestamentBtn">New Testament</button>
+
+      <!-- Book list placeholder -->
+      <div class="book-list">
+        <h3>Books</h3>
+        <ul id="bookList">
+          <!-- JS will populate with books -->
+        </ul>
+      </div>
+    </div>
+
+    <div class="main">
+      <div class="search-bar">
+        <input
+          type="text"
+          id="searchInput"
+          placeholder="Search e.g. John 3:16"
+        />
+        <button id="searchBtn">Search</button>
+      </div>
+      <div class="display" id="displayArea">
+        <p>Welcome! Search for a verse or choose a Testament to start.</p>
+      </div>
+    </div>
+    <script src="app.js"></script>
+  </body>
+</html>
