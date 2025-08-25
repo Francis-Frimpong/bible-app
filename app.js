@@ -70,6 +70,7 @@ bookList.addEventListener("click", async (e) => {
   }
 });
 
+// testing api interface
 async function cl() {
   const response = await axios.get("https://bible-api.com/data/kjv/GEN/1");
   console.log(response.data);
