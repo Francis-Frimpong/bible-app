@@ -132,3 +132,31 @@ body {
   border-radius: 8px;
   line-height: 1.6;
 }
+
+.book-list ul li {
+  padding: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  margin-bottom: 10px;
+  border-radius: 6px;
+  transition: background 0.2s;
+  display: flex;
+  flex-direction: column;
+}
+
+.book-list ul li:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.book-name {
+  font-weight: bold;
+  margin-bottom: 5px;
+  cursor: pointer;
+}
+
+.chapter-dropdown {
+  padding: 6px;
+  border-radius: 6px;
+  border: none;
+  font-size: 0.9rem;
+  cursor: pointer;
+}

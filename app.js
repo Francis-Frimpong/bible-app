@@ -19,7 +19,12 @@ class BookList extends BibleApi {
     this.getApi().then((data) => {
       for (const book of data.books) {
         const li = document.createElement("li");
-        li.textContent = book.name;
+
+        const span = document.createElement("span");
+        span.classList.add("book-name");
+        span.textContent = book.name;
+
+        li.appendChild(span);
         document.getElementById("bookList").appendChild(li);
       }
     });
@@ -33,9 +38,9 @@ class BookList extends BibleApi {
             .getApi()
             .then((data) => {
               for (const chapter of data.chapters) {
-                const h3 = document.createElement("h3");
-                h3.textContent = `Chapter ${chapter.chapter}`;
-                document.getElementById("displayArea").appendChild(h3);
+                // const h3 = document.createElement("h3");
+                // h3.textContent = `Chapter ${chapter.chapter}`;
+                // document.getElementById("displayArea").appendChild(h3);
 
                 console.log(chapter.chapter);
               }
@@ -97,24 +102,10 @@ bookList.addEventListener("click", (e) => {
   books.renderVerse(e);
 });
 
-// bookList.addEventListener("click", async (e) => {
-//   if (e.target.tagName === "LI") {
-//     let get = e.target.textContent.slice(0, 3).toUpperCase();
-//     const response = await axios.get(`https://bible-api.com/data/kjv/${get}`);
-//     response.data.chapters.forEach((chapter) => {
-//       const h3 = document.createElement("h3");
-//       h3.textContent = `Chapter ${chapter.chapter}`;
-//       document.getElementById("displayArea").appendChild(h3);
-
-//       // console.log(chapter.chapter);
-//     });
-//   }
-// });
-
 // testing api interface
-async function cl() {
-  const response = await axios.get("https://bible-api.com/data/kjv");
-  console.log(response.data);
-}
+// async function cl() {
+//   const response = await axios.get("https://bible-api.com/data/kjv");
+//   console.log(response.data);
+// }
 
-cl();
+// cl();
