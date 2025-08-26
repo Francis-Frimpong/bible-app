@@ -24,6 +24,30 @@ class BookList extends BibleApi {
       }
     });
   }
+
+  renderVerse(e) {
+    this.getApi().then((data) => {
+      for (const book of data.books) {
+        if (e.target.textContent === book.name) {
+          new BibleApi(`https://bible-api.com/data/kjv/${book.id}`)
+            .getApi()
+            .then((data) => {
+              for (const chapter of data.chapters) {
+                const h3 = document.createElement("h3");
+                h3.textContent = `Chapter ${chapter.chapter}`;
+                document.getElementById("displayArea").appendChild(h3);
+
+                console.log(chapter.chapter);
+              }
+              console.log(data);
+            });
+        }
+        // const li = document.createElement("li");
+        // li.textContent = book.name;
+        // document.getElementById("bookList").appendChild(li);
+      }
+    });
+  }
 }
 
 // Search bible qoutation Class
@@ -49,18 +73,6 @@ class SearchQuotation extends BibleApi {
 }
 
 // Display bible chapters and verses base on the book
-class ChaptersAndVerse extends BibleApi {
-  constructor(resource) {
-    super(resource);
-  }
-
-  renderVerse(e) {
-    if (e.target.tagName === "LI") {
-      let get = e.target.textContent.slice(0, 3).toUpperCase();
-      console.log(get);
-    }
-  }
-}
 
 // accessing html element
 const searchInput = document.getElementById("searchInput");
@@ -82,8 +94,7 @@ searchBtn.addEventListener("click", () => {
 });
 
 bookList.addEventListener("click", (e) => {
-  const showVerse = new ChaptersAndVerse(`https://bible-api.com/data/kjv/GEN`);
-  showVerse.renderVerse(e);
+  books.renderVerse(e);
 });
 
 // bookList.addEventListener("click", async (e) => {
@@ -100,10 +111,10 @@ bookList.addEventListener("click", (e) => {
 //   }
 // });
 
-// // testing api interface
-// async function cl() {
-//   const response = await axios.get("https://bible-api.com/data/kjv/GEN/1");
-//   console.log(response.data);
-// }
+// testing api interface
+async function cl() {
+  const response = await axios.get("https://bible-api.com/data/kjv");
+  console.log(response.data);
+}
 
-// cl();
+cl();
