@@ -16,42 +16,49 @@ class BookList extends BibleApi {
   }
 
   displayAllBooks() {
-    this.getApi().then((data) => {
-      for (const book of data.books) {
-        const li = document.createElement("li");
+    this.getApi()
+      .then((data) => {
+        const chapterRequests = []; // collect all chapter API calls
 
-        const span = document.createElement("span");
-        span.classList.add("book-name");
-        span.textContent = book.name;
+        for (const book of data.books) {
+          const li = document.createElement("li");
+          li.classList.add("book-item");
 
-        li.appendChild(span);
-        document.getElementById("bookList").appendChild(li);
-      }
-    });
-  }
+          const toggleBtn = document.createElement("button");
+          toggleBtn.classList.add("book-toggle");
+          toggleBtn.textContent = book.name;
 
-  renderVerse(e) {
-    this.getApi().then((data) => {
-      for (const book of data.books) {
-        if (e.target.textContent === book.name) {
-          new BibleApi(`https://bible-api.com/data/kjv/${book.id}`)
-            .getApi()
-            .then((data) => {
-              for (const chapter of data.chapters) {
-                // const h3 = document.createElement("h3");
-                // h3.textContent = `Chapter ${chapter.chapter}`;
-                // document.getElementById("displayArea").appendChild(h3);
+          const chaptersDiv = document.createElement("div");
+          chaptersDiv.classList.add("chapters");
 
-                console.log(chapter.chapter);
-              }
-              console.log(data);
-            });
+          toggleBtn.addEventListener("click", () => {
+            chaptersDiv.classList.toggle("active");
+          });
+
+          li.appendChild(toggleBtn);
+          li.appendChild(chaptersDiv);
+          document.getElementById("bookList").appendChild(li);
+
+          // store chapter request for this book
+          chapterRequests.push(
+            axios
+              .get(`https://bible-api.com/data/kjv/${book.id}`)
+              .then((res) => {
+                // render chapters once data comes back
+                for (const chapter of res.data.chapters) {
+                  const chapterBtn = document.createElement("button");
+                  chapterBtn.classList.add("chapter-btn");
+                  chapterBtn.textContent = `${book.name} ${chapter.chapter}`;
+                  chaptersDiv.appendChild(chapterBtn);
+                }
+              })
+          );
         }
-        // const li = document.createElement("li");
-        // li.textContent = book.name;
-        // document.getElementById("bookList").appendChild(li);
-      }
-    });
+
+        // wait for all chapters requests to finish
+        return Promise.all(chapterRequests);
+      })
+      .catch((err) => console.error(err));
   }
 }
 
@@ -98,14 +105,10 @@ searchBtn.addEventListener("click", () => {
   searchInput.value = "";
 });
 
-bookList.addEventListener("click", (e) => {
-  books.renderVerse(e);
-});
-
 // testing api interface
-// async function cl() {
-//   const response = await axios.get("https://bible-api.com/data/kjv");
-//   console.log(response.data);
-// }
+async function cl() {
+  const response = await axios.get("https://bible-api.com/data/kjv/GEN");
+  console.log(response.data);
+}
 
-// cl();
+cl();
