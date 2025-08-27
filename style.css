@@ -152,11 +152,3 @@ body {
   margin-bottom: 5px;
   cursor: pointer;
 }
-
-.chapter-dropdown {
-  padding: 6px;
-  border-radius: 6px;
-  border: none;
-  font-size: 0.9rem;
-  cursor: pointer;
-}
