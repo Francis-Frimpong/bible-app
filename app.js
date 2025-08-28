@@ -108,12 +108,3 @@ axios
   })
   .then((res) => console.log(res.data.data))
   .catch((err) => console.error(err));
-axios
-  .get(
-    "https://api.scripture.api.bible/v1/bibles/de4e12af7f28f599-01/search?query={John 3:16}",
-    {
-      headers: { "api-key": API_KEY },
-    }
-  )
-  .then((res) => console.log(res.data.data))
-  .catch((err) => console.error(err));
