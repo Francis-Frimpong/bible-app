@@ -1,0 +1,14 @@
+ console.log(book.id);
+          const callApi = axios.get(
+            `https://api.scripture.api.bible/v1/bibles/de4e12af7f28f599-01/books/${book.id}/chapters`,
+            { headers: { "api-key": API_KEY } }
+          );
+
+          callApi.then((res) => {
+            const data = res.data.data;
+            console.log(data);
+            const chapterBtn = document.createElement("button");
+            chapterBtn.classList.add("chapter-btn");
+            chapterBtn.textContent = data.reference;
+            chaptersDiv.appendChild(chapterBtn);
+          });

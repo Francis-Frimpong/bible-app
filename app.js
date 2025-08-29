@@ -106,13 +106,33 @@ class BookList extends BibleApi {
         const chaptersDiv = document.createElement("div");
         chaptersDiv.classList.add("chapters");
 
-        toggleBtn.addEventListener("click", () => {
-          chaptersDiv.classList.toggle("active");
-        });
+        this.getChapters(book.id, chaptersDiv);
 
         li.appendChild(toggleBtn);
         li.appendChild(chaptersDiv);
         document.getElementById("bookList").appendChild(li);
+
+        toggleBtn.addEventListener("click", () => {
+          chaptersDiv.classList.toggle("active");
+        });
+      }
+    });
+  }
+
+  getChapters(bookId, chaptersDiv) {
+    // console.log(bookId);
+    const callApi = axios.get(
+      `https://api.scripture.api.bible/v1/bibles/de4e12af7f28f599-01/books/${bookId}/chapters`,
+      { headers: { "api-key": API_KEY } }
+    );
+
+    callApi.then((res) => {
+      const data = res.data.data;
+      for (const chapter of data) {
+        const chapterBtn = document.createElement("button");
+        chapterBtn.classList.add("chapter-btn");
+        chapterBtn.textContent = chapter.reference;
+        chaptersDiv.appendChild(chapterBtn);
       }
     });
   }
@@ -176,3 +196,12 @@ searchBtn.addEventListener("click", () => {
 //   })
 //   .then((res) => console.log(res.data.data))
 //   .catch((err) => console.error(err));
+axios
+  .get(
+    "https://api.scripture.api.bible/v1/bibles/de4e12af7f28f599-01/books/GEN/chapters",
+    {
+      headers: { "api-key": API_KEY },
+    }
+  )
+  .then((res) => console.log(res.data.data))
+  .catch((err) => console.error(err));

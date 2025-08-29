@@ -152,3 +152,46 @@ body {
   margin-bottom: 5px;
   cursor: pointer;
 }
+
+.book-item {
+  margin-bottom: 10px;
+  list-style: none;
+}
+
+.book-toggle {
+  width: 100%;
+  text-align: left;
+  background: #eee;
+  border: none;
+  padding: 10px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.book-toggle:hover {
+  background: #ddd;
+}
+
+.chapters {
+  display: none;
+  padding-left: 15px;
+}
+
+.chapters.active {
+  display: block;
+}
+
+.chapter-btn {
+  display: block;
+  width: 100%;
+  background: #f9f9f9;
+  border: none;
+  padding: 8px;
+  margin: 2px 0;
+  text-align: left;
+  cursor: pointer;
+}
+
+.chapter-btn:hover {
+  background: #ddd;
+}
