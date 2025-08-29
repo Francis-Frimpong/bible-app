@@ -19,7 +19,83 @@ class BookList extends BibleApi {
 
   displayAllBooks() {
     this.getApi().then((data) => {
-      for (const book of data.data) {
+      const allBooks = data.data;
+      const canonicalBooks = [
+        "Genesis",
+        "Exodus",
+        "Leviticus",
+        "Numbers",
+        "Deuteronomy",
+        "Joshua",
+        "Judges",
+        "Ruth",
+        "1 Samuel",
+        "2 Samuel",
+        "1 Kings",
+        "2 Kings",
+        "1 Chronicles",
+        "2 Chronicles",
+        "Ezra",
+        "Nehemiah",
+        "Esther",
+        "Job",
+        "Psalms",
+        "Proverbs",
+        "Ecclesiastes",
+        "Song of Solomon",
+        "Isaiah",
+        "Jeremiah",
+        "Lamentations",
+        "Ezekiel",
+        "Daniel",
+        "Hosea",
+        "Joel",
+        "Amos",
+        "Obadiah",
+        "Jonah",
+        "Micah",
+        "Nahum",
+        "Habakkuk",
+        "Zephaniah",
+        "Haggai",
+        "Zechariah",
+        "Malachi",
+        "Matthew",
+        "Mark",
+        "Luke",
+        "John",
+        "Acts",
+        "Romans",
+        "1 Corinthians",
+        "2 Corinthians",
+        "Galatians",
+        "Ephesians",
+        "Philippians",
+        "Colossians",
+        "1 Thessalonians",
+        "2 Thessalonians",
+        "1 Timothy",
+        "2 Timothy",
+        "Titus",
+        "Philemon",
+        "Hebrews",
+        "James",
+        "1 Peter",
+        "2 Peter",
+        "1 John",
+        "2 John",
+        "3 John",
+        "Jude",
+        "Revelation",
+      ];
+
+      const filterdBooks = allBooks.filter((book) =>
+        canonicalBooks.includes(book.name)
+      );
+
+      console.log(filterdBooks);
+
+      for (const book of filterdBooks) {
         const li = document.createElement("li");
         li.classList.add("book-item");
 
@@ -94,17 +170,9 @@ searchBtn.addEventListener("click", () => {
   searchInput.value = "";
 });
 
-// testing api interface
-// async function cl() {
-//   const response = await axios.get("https://bible-api.com/data/kjv/GEN");
-//   console.log(response.data);
-// }
-
-// cl();
-
-axios
-  .get("https://api.scripture.api.bible/v1/bibles/de4e12af7f28f599-01/books", {
-    headers: { "api-key": API_KEY },
-  })
-  .then((res) => console.log(res.data.data))
-  .catch((err) => console.error(err));
+// axios
+//   .get("https://api.scripture.api.bible/v1/bibles/de4e12af7f28f599-01/books", {
+//     headers: { "api-key": API_KEY },
+//   })
+//   .then((res) => console.log(res.data.data))
+//   .catch((err) => console.error(err));
