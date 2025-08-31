@@ -190,6 +190,9 @@ class SearchQuotation extends BibleApi {
   }
 }
 
+// class for toggling between old and new testament
+class ToggleOldAnNewTestament {}
+
 // Display bible chapters and verses base on the book
 
 // accessing html element
