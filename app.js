@@ -93,8 +93,6 @@ class BookList extends BibleApi {
         canonicalBooks.includes(book.name)
       );
 
-      console.log(filterdBooks);
-
       for (const book of filterdBooks) {
         const li = document.createElement("li");
         li.classList.add("book-item");
@@ -128,12 +126,39 @@ class BookList extends BibleApi {
 
     callApi.then((res) => {
       const data = res.data.data;
+
       for (const chapter of data) {
         const chapterBtn = document.createElement("button");
         chapterBtn.classList.add("chapter-btn");
         chapterBtn.textContent = chapter.reference;
+        chapterBtn.addEventListener("click", () => {
+          this.getVerses(chapter.id);
+        });
         chaptersDiv.appendChild(chapterBtn);
       }
+    });
+  }
+
+  getVerses(chapterId) {
+    const callApi = axios.get(
+      `https://api.scripture.api.bible/v1/bibles/de4e12af7f28f599-01/chapters/${chapterId}`,
+      { headers: { "api-key": API_KEY } }
+    );
+
+    callApi.then((res) => {
+      const chapter = res.data.data;
+
+      document.getElementById("displayArea").innerHTML = "";
+
+      const h3 = document.createElement("h3");
+      h3.textContent = chapter.reference;
+
+      const p = document.createElement("p");
+      p.innerHTML = chapter.content;
+
+      p.classList.add("verse");
+      document.getElementById("displayArea").appendChild(h3);
+      document.getElementById("displayArea").appendChild(p);
     });
   }
 }
@@ -189,19 +214,3 @@ searchBtn.addEventListener("click", () => {
 
   searchInput.value = "";
 });
-
-// axios
-//   .get("https://api.scripture.api.bible/v1/bibles/de4e12af7f28f599-01/books", {
-//     headers: { "api-key": API_KEY },
-//   })
-//   .then((res) => console.log(res.data.data))
-//   .catch((err) => console.error(err));
-axios
-  .get(
-    "https://api.scripture.api.bible/v1/bibles/de4e12af7f28f599-01/books/GEN/chapters",
-    {
-      headers: { "api-key": API_KEY },
-    }
-  )
-  .then((res) => console.log(res.data.data))
-  .catch((err) => console.error(err));
