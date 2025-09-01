@@ -191,9 +191,107 @@ class SearchQuotation extends BibleApi {
 }
 
 // class for toggling between old and new testament
-class ToggleOldAnNewTestament {}
+class FilterOldAnNewTestament {
+  constructor() {
+    this.oldTestamentBooks = [
+      "Genesis",
+      "Exodus",
+      "Leviticus",
+      "Numbers",
+      "Deuteronomy",
+      "Joshua",
+      "Judges",
+      "Ruth",
+      "1 Samuel",
+      "2 Samuel",
+      "1 Kings",
+      "2 Kings",
+      "1 Chronicles",
+      "2 Chronicles",
+      "Ezra",
+      "Nehemiah",
+      "Esther",
+      "Job",
+      "Psalms",
+      "Proverbs",
+      "Ecclesiastes",
+      "Song of Solomon",
+      "Isaiah",
+      "Jeremiah",
+      "Lamentations",
+      "Ezekiel",
+      "Daniel",
+      "Hosea",
+      "Joel",
+      "Amos",
+      "Obadiah",
+      "Jonah",
+      "Micah",
+      "Nahum",
+      "Habakkuk",
+      "Zephaniah",
+      "Haggai",
+      "Zechariah",
+      "Malachi",
+    ];
+    this.newTestamentBooks = [
+      "Matthew",
+      "Mark",
+      "Luke",
+      "John",
+      "Acts",
+      "Romans",
+      "1 Corinthians",
+      "2 Corinthians",
+      "Galatians",
+      "Ephesians",
+      "Philippians",
+      "Colossians",
+      "1 Thessalonians",
+      "2 Thessalonians",
+      "1 Timothy",
+      "2 Timothy",
+      "Titus",
+      "Philemon",
+      "Hebrews",
+      "James",
+      "1 Peter",
+      "2 Peter",
+      "1 John",
+      "2 John",
+      "3 John",
+      "Jude",
+      "Revelation",
+    ];
+  }
 
-// Display bible chapters and verses base on the book
+  getOldTestament() {
+    const getAllBooks = document.querySelectorAll(".book-toggle");
+
+    for (const book of getAllBooks) {
+      const bookName = book.textContent.trim();
+
+      if (this.oldTestamentBooks.includes(bookName)) {
+        book.parentElement.style.display = "block";
+      } else {
+        book.parentElement.style.display = "none";
+      }
+    }
+  }
+  getNewTestament() {
+    const getAllBooks = document.querySelectorAll(".book-toggle");
+
+    for (const book of getAllBooks) {
+      const bookName = book.textContent.trim();
+
+      if (this.newTestamentBooks.includes(bookName)) {
+        book.parentElement.style.display = "block";
+      } else {
+        book.parentElement.style.display = "none";
+      }
+    }
+  }
+}
 
 // accessing html element
 const searchInput = document.getElementById("searchInput");
@@ -209,6 +307,7 @@ const books = new BookList(
 );
 books.displayAllBooks();
 
+// adding click event for search
 searchBtn.addEventListener("click", () => {
   const searchVerse = new SearchQuotation(
     `https://api.scripture.api.bible/v1/bibles/de4e12af7f28f599-01/search?query=${searchInput.value}`
@@ -217,3 +316,14 @@ searchBtn.addEventListener("click", () => {
 
   searchInput.value = "";
 });
+
+// create an instance of the filterOldAndNewtestamet
+const filterBooks = new FilterOldAnNewTestament();
+
+// access the DOM element of the toggle button of old and new testament
+const oldTestamentBtn = document.getElementById("oldTestamentBtn");
+const newTestamentBtn = document.getElementById("newTestamentBtn");
+
+// create event listeners for both of them
+oldTestamentBtn.addEventListener("click", () => filterBooks.getOldTestament());
+newTestamentBtn.addEventListener("click", () => filterBooks.getNewTestament());
