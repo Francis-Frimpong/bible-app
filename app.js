@@ -321,7 +321,7 @@ const filterBooks = new FilterOldAnNewTestament();
 const oldTestamentBtn = document.getElementById("oldTestamentBtn");
 const newTestamentBtn = document.getElementById("newTestamentBtn");
 
-// create event listeners for both of them
+// create event listeners for both of them old and new testament button
 oldTestamentBtn.addEventListener("click", () =>
   filterBooks.displayOldTestament()
 );
