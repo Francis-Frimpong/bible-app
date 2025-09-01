@@ -266,7 +266,7 @@ class FilterOldAnNewTestament {
     ];
   }
 
-  getOldTestament() {
+  displayOldTestament() {
     const getAllBooks = document.querySelectorAll(".book-toggle");
 
     for (const book of getAllBooks) {
@@ -279,7 +279,7 @@ class FilterOldAnNewTestament {
       }
     }
   }
-  getNewTestament() {
+  displayNewTestament() {
     const getAllBooks = document.querySelectorAll(".book-toggle");
 
     for (const book of getAllBooks) {
@@ -326,5 +326,9 @@ const oldTestamentBtn = document.getElementById("oldTestamentBtn");
 const newTestamentBtn = document.getElementById("newTestamentBtn");
 
 // create event listeners for both of them
-oldTestamentBtn.addEventListener("click", () => filterBooks.getOldTestament());
-newTestamentBtn.addEventListener("click", () => filterBooks.getNewTestament());
+oldTestamentBtn.addEventListener("click", () =>
+  filterBooks.displayOldTestament()
+);
+newTestamentBtn.addEventListener("click", () =>
+  filterBooks.displayNewTestament()
+);
