@@ -187,7 +187,7 @@ class SearchQuotation extends BibleApi {
   }
 }
 
-// class for toggling between old and new testament
+// class for toggling between old and new testament books
 class FilterOldAnNewTestament {
   constructor() {
     this.oldTestamentBooks = [
