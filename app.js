@@ -119,14 +119,11 @@ class BookList extends BibleApi {
   }
 
   getChapters(bookId, chaptersDiv) {
-    // console.log(bookId);
-    const callApi = axios.get(
-      `https://api.scripture.api.bible/v1/bibles/de4e12af7f28f599-01/books/${bookId}/chapters`,
-      { headers: { "api-key": API_KEY } }
+    const callApi = new BibleApi(
+      `https://api.scripture.api.bible/v1/bibles/de4e12af7f28f599-01/books/${bookId}/chapters`
     );
-
-    callApi.then((res) => {
-      const data = res.data.data;
+    callApi.getApi().then((res) => {
+      const data = res.data;
 
       for (const chapter of data) {
         const chapterBtn = document.createElement("button");
@@ -141,13 +138,12 @@ class BookList extends BibleApi {
   }
 
   getVerses(chapterId) {
-    const callApi = axios.get(
-      `https://api.scripture.api.bible/v1/bibles/de4e12af7f28f599-01/chapters/${chapterId}`,
-      { headers: { "api-key": API_KEY } }
+    const callApi = new BibleApi(
+      `https://api.scripture.api.bible/v1/bibles/de4e12af7f28f599-01/chapters/${chapterId}`
     );
 
-    callApi.then((res) => {
-      const chapter = res.data.data;
+    callApi.getApi().then((res) => {
+      const chapter = res.data;
 
       document.getElementById("displayArea").innerHTML = "";
 
