@@ -1,3 +1,4 @@
+// class for call api
 class BibleApi {
   constructor(resource) {
     this.resource = resource;
